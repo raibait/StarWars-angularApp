@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-// import { IEvent, ISession } from './event.model';
+// import { ICharacter } from './character.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, concatMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 @Injectable()
@@ -14,6 +14,13 @@ export class StarwarsService {
       .get('https://swapi.co/api/people/?format=json')
       .pipe(catchError(this.handleError('getPeople', [])));
   }
+
+  // getPeople() {
+  //   return this.http.get('https://swapi.co/api/people/?format=json').pipe(
+  //     //map(response => response.results),
+  //     concatMap(() => {})
+  //   );
+  // }
 
   getSpecies(link) {
     return this.http

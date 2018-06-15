@@ -4,10 +4,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <app-navigation-bar></app-navigation-bar>
+      <app-navigation-bar (pickedCharacterOut)="handlePickedCharacter($event)"></app-navigation-bar>
     </div>
     <div class="col-md-8">
-      <app-profile-view></app-profile-view>
+      <app-profile-view *ngIf="pickedCharacterOut" [pickedCharacterOut]='pickedCharacterOut'></app-profile-view>
     </div>
   </div>
 </div>
