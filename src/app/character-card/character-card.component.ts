@@ -11,9 +11,9 @@ export class CharacterCardComponent implements OnInit {
   @Output() pickedCharacterOut = new EventEmitter();
   species: Object;
   ngOnInit() {
-    this.starwarsService
-      .getSpecies(this.character.species[0])
-      .subscribe(data => (this.species = data));
+    // this.starwarsService
+    //   .getSpecies(this.character.species[0])
+    //   .subscribe(data => (this.species = data));
   }
   onClick(pickedCharacter) {
     this.pickedCharacterOut.emit(pickedCharacter);
