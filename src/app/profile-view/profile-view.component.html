@@ -1,12 +1,30 @@
 <h1 class="mb-1">{{pickedCharacterOut.name}}</h1>
 <div>
   <ul class="list-group">
-    <li class="list-group-item">birth year</li>
-    <li class="list-group-item">height</li>
-    <li class="list-group-item">mass</li>
-    <li class="list-group-item">hair color</li>
-    <li class="list-group-item">skin color</li>
-    <li class="list-group-item">gender</li>
-    <li class="list-group-item">number of vehicles</li>
+    <li class="list-group-item">birth year
+      <span class="detail-info">{{pickedCharacterOut.birth_year}}</span>
+    </li>
+    <li class="list-group-item">height
+      <span class="detail-info">{{pickedCharacterOut.height}}</span>
+    </li>
+    <li class="list-group-item">mass
+      <span class="detail-info">{{pickedCharacterOut.mass}}</span>
+    </li>
+    <li class="list-group-item">hair color
+      <span class="detail-info">{{pickedCharacterOut.hair_color}}</span>
+    </li>
+    <li class="list-group-item">skin color
+      <span class="detail-info">{{pickedCharacterOut.skin_color}}</span>
+    </li>
+    <li class="list-group-item">gender
+      <span class="detail-info">{{pickedCharacterOut.gender}}</span>
+    </li>
+    <li class="list-group-item">number of vehicles
+      <span class="detail-info">{{pickedCharacterOut.vehicles.length}}</span>
+    </li>
   </ul>
+  <h2 *ngIf="pickedCharacterOut.starships.length> 0">starships:</h2>
+  <div *ngFor="let starship of pickedCharacterOut.starships">
+    <span class="starship">&#x25cf; {{starship}}</span>
+  </div>
 </div>

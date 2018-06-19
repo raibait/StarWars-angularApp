@@ -1,4 +1,3 @@
-<div *ngFor="let character of data?.results">
+<div *ngFor="let character of data">
   <app-character-card (pickedCharacterOut)="handlePickedCharacter($event)" [character]="character"></app-character-card>
-  <br/>
 </div>

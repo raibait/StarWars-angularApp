@@ -9,61 +9,65 @@ import 'rxjs/add/observable/of';
 export class StarwarsService {
   constructor(private http: HttpClient) {}
 
-  // getPeople() {
-  //   return this.http
-  //     .get('https://swapi.co/api/people/?format=json')
-  //     .pipe(catchError(this.handleError('getPeople', [])));
-  // }
-
   getPeople() {
     return this.http.get('https://swapi.co/api/people/?format=json').pipe(
       map(response => response['results']),
       concatMap(
         characters =>
           forkJoin(
-            ...this.extractAllSpecies(characters).map(species =>
-              this.getSpecies(species)
+            ...this.extractProperty(characters, 'species').map(species =>
+              this.getUrl(species)
+            ),
+            ...this.extractProperty(characters, 'starships').map(starships =>
+              this.getUrl(starships)
             )
           ),
-        (characters, species) =>
-          this.assignSpeciesToCharacters(characters, species)
+        (characters, properties) =>
+          this.assignPropertyToCharacters(characters, properties)
       )
     );
   }
 
-  extractAllSpecies(characters): string[] {
-    const extractedSpeciesUrls: string[] = [];
-    const speciesUrls = characters.map(character => character.species);
+  extractProperty(characters, propertyName): string[] {
+    const extractedPropertyUrls: string[] = [];
+    const propertyUrls = characters.map(character => character[propertyName]);
 
-    for (let i = 0; i < speciesUrls.length; i++) {
-      for (let j = 0; j < speciesUrls[i].length; j++) {
-        if (extractedSpeciesUrls.indexOf(speciesUrls[i][j]) === -1) {
-          extractedSpeciesUrls.push(speciesUrls[i][j]);
+    for (let i = 0; i < propertyUrls.length; i++) {
+      for (let j = 0; j < propertyUrls[i].length; j++) {
+        if (extractedPropertyUrls.indexOf(propertyUrls[i][j]) === -1) {
+          extractedPropertyUrls.push(propertyUrls[i][j]);
         }
       }
     }
-    return extractedSpeciesUrls;
+    return extractedPropertyUrls;
   }
 
-  assignSpeciesToCharacters(characters, species) {
-    console.log(characters);
-    console.log(species);
+  assignPropertyToCharacters(characters, properties) {
     return characters.map(character => {
       const speciesList = character.species.map(
-        spec => species.find(spec1 => spec1.url === spec).name
+        species => properties.find(species1 => species1.url === species).name
       );
-      return Object.assign(character, { species: speciesList });
+      const starshipsList = character.starships.map(
+        starship =>
+          properties.find(starship1 => starship1.url === starship).name +
+          ' / ' +
+          properties.find(starship1 => starship1.url === starship).model
+      );
+
+      const starshipsModelsList = character.starships.map(
+        starship =>
+          properties.find(starship1 => starship1.url === starship).model
+      );
+
+      return Object.assign(character, {
+        species: speciesList,
+        starships: starshipsList
+      });
     });
   }
 
-  // getSpecies(link) {
-  //   return this.http
-  //     .get(link)
-  //     .pipe(catchError(this.handleError('getPeople', [])));
-  // }
-
-  getSpecies(speciesUrl: string): Observable<string> {
-    return this.http.get<string>(speciesUrl);
+  getUrl(Url: string): Observable<string> {
+    return this.http.get<string>(Url);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

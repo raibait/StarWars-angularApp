@@ -11,7 +11,7 @@ export class NavigationBarComponent implements OnInit {
   constructor(private starwarsService: StarwarsService) {}
 
   ngOnInit() {
-    this.starwarsService.getPeople().subscribe(data => console.log(data));
+    this.starwarsService.getPeople().subscribe(data => (this.data = data));
   }
 
   handlePickedCharacter(pickedCharacter) {
