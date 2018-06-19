@@ -1,12 +1,12 @@
-<div class="row-fluid">
-  <app-menu-container></app-menu-container>
+<div class="row-fluid topbar">
+  <app-menu-container class=" app-menu-container" data-spy="affix"></app-menu-container>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 sidebar">
       <app-navigation-bar (pickedCharacterOut)="handlePickedCharacter($event)"></app-navigation-bar>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 content">
       <app-profile-view *ngIf="pickedCharacterOut" [pickedCharacterOut]='pickedCharacterOut'></app-profile-view>
     </div>
   </div>

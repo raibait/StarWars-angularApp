@@ -6,6 +6,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class CharacterCardComponent {
   @Input() character;
+  @Input() clicked;
   @Output() pickedCharacterOut = new EventEmitter();
   species: Object;
 
