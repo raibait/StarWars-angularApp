@@ -29,9 +29,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   pickedCharacterOut;
+  searchTerm;
   title = 'app';
 
   handlePickedCharacter(pickedCharacter) {
     this.pickedCharacterOut = pickedCharacter;
+  }
+
+  handleSearchTermEmmitter(searchTerm) {
+    this.searchTerm = searchTerm;
   }
 }

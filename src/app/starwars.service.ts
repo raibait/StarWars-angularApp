@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, forkJoin, of, observable } from 'rxjs';
 // import { ICharacter } from './character.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import { catchError, map, concatMap, filter } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 @Injectable()

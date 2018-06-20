@@ -7,6 +7,7 @@ import { MenuContainerComponent } from './menu-container/menu-container.componen
 import { StarwarsService } from './starwars.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CharacterCardComponent } from './character-card/character-card.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CharacterCardComponent } from './character-card/character-card.componen
     MenuContainerComponent,
     CharacterCardComponent
   ],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [StarwarsService],
   bootstrap: [AppComponent]
 })

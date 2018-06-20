@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { StylesCompileDependency } from '@angular/compiler';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-profile-view',
@@ -25,10 +24,6 @@ import { StylesCompileDependency } from '@angular/compiler';
     `
   ]
 })
-export class ProfileViewComponent implements OnChanges {
+export class ProfileViewComponent {
   @Input() pickedCharacterOut;
-
-  ngOnChanges() {
-    console.log(this.pickedCharacterOut);
-  }
 }
