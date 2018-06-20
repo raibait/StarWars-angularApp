@@ -10,7 +10,8 @@ import { StarwarsService } from '../starwars.service';
 
 @Component({
   selector: 'app-navigation-bar',
-  templateUrl: './navigation-bar.component.html'
+  templateUrl: './navigation-bar.component.html',
+  styleUrls: ['./navigation-bar.component.css']
 })
 export class NavigationBarComponent implements OnInit, OnChanges {
   @Input() searchTerm;
