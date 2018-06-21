@@ -2,7 +2,7 @@
   <app-character-card (pickedCharacterOut)="handlePickedCharacter($event)" [character]="character" [clicked]="handleCardHighlight(character)"></app-character-card>
 
 </div>
-<div class="lds-ripple">
+<div *ngIf="this.starwarsService.loading" class="lds-ripple">
   <div></div>
   <div></div>
 </div>

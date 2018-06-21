@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, of, observable } from 'rxjs';
 // import { ICharacter } from './character.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, concatMap, filter } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { map, concatMap, finalize, tap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 @Injectable()
 export class StarwarsService {
+  loading = false;
+  nextPageUrl = 'https://swapi.co/api/people/?format=json';
   constructor(private http: HttpClient) {}
 
   getPeople() {
-    return this.http.get('https://swapi.co/api/people/?format=json').pipe(
+    if (!this.nextPageUrl) {
+      return of(null);
+    }
+    this.loading = true;
+    return this.http.get(this.nextPageUrl).pipe(
+      tap(response => (this.nextPageUrl = response['next'])),
       map(response => response['results']),
       concatMap(
         characters =>
@@ -24,7 +31,8 @@ export class StarwarsService {
           ),
         (characters, properties) =>
           this.assignPropertyToCharacters(characters, properties)
-      )
+      ),
+      finalize(() => (this.loading = false))
     );
   }
 

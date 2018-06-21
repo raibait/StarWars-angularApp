@@ -17,9 +17,23 @@ export class NavigationBarComponent implements OnInit, OnChanges {
   @Input() searchTerm;
   @Output() pickedCharacterOut = new EventEmitter();
   pickedCharacter;
+  sidebar = document.getElementById('sidebar');
   data: any;
   filteredData: any;
-  constructor(private starwarsService: StarwarsService) {}
+
+  constructor(private starwarsService: StarwarsService) {
+    this.sidebar.onscroll = () => {
+      if (
+        this.sidebar.offsetHeight + this.sidebar.scrollTop ===
+          this.sidebar.scrollHeight &&
+        !this.starwarsService.loading
+      ) {
+        this.starwarsService.getPeople().subscribe(data => {
+          this.data.push(...data);
+        });
+      }
+    };
+  }
 
   ngOnInit() {
     this.starwarsService.getPeople().subscribe(data => {
